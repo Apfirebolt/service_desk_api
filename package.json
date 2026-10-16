@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/server.js",
     "server": "tsx server.ts",
+    "build": "tsc",
     "dev": "nodemon server.ts"
   },
   "repository": {
