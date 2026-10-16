@@ -5,15 +5,16 @@ import morgan from 'morgan';
 import history from 'connect-history-api-fallback';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
-import { notFound, errorHandler } from './server/middleware/errorMiddleware.ts';
-import connectDB from './server/config/db.js';
+import { notFound, errorHandler } from './middleware/errorMiddleware';
+import connectDB from './config/db';
 
-import userRoutes from './server/routes/authRoutes.ts';
-import complaintRoutes from './server/routes/complaintRoutes.ts';
-import departmentRoutes from './server/routes/departmentRoutes.ts';
+import userRoutes from './routes/authRoutes';
+import complaintRoutes from './routes/complaintRoutes';
+import departmentRoutes from './routes/departmentRoutes';
 
 dotenv.config();
 
+// Connect to MongoDB
 connectDB();
 
 const app = express();
@@ -35,8 +36,10 @@ const swaggerOptions: swaggerJsdoc.Options = {
     },
     servers: [
       {
-        url: `http://localhost:${process.env.PORT || 5000}`,
-        description: 'Development Server',
+        url: process.env.VERCEL_URL 
+          ? `https://${process.env.VERCEL_URL}` 
+          : `http://localhost:${process.env.PORT || 5000}`,
+        description: process.env.VERCEL_URL ? 'Production Server' : 'Development Server',
       },
     ],
     components: {
@@ -49,8 +52,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
       },
     },
   },
-  // Automatically scan your route files containing JSDoc comments
-  apis: ['./server/routes/*.ts'],
+  apis: ['./routes/*.ts'],
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
@@ -72,12 +74,10 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/client/build')));
 
   app.use((req: Request, res: Response, next: NextFunction): void => {
-    console.log('This error page');
     const error: Error & { status?: number } = new Error('Not Found');
     error.status = 404;
 
     res.status(200).sendFile(path.join(__dirname + '/client/build/index.html'));
-
     next(error);
   });
 } else {
@@ -89,9 +89,14 @@ if (process.env.NODE_ENV === 'production') {
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+// Only listen locally if not running in a serverless environment like Vercel
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running in development mode on port ${PORT}`);
+    console.log(`Swagger Docs available at http://localhost:${PORT}/api/docs`);
+  });
+}
 
-app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-  console.log(`Swagger Docs available at http://localhost:${PORT}/api/docs`);
-});
+// Export app for serverless deployments (e.g., Vercel)
+export default app;

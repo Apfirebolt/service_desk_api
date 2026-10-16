@@ -1,18 +1,14 @@
 {
-  "name": "service-desk-management",
+  "name": "service-desk-management-api",
   "version": "1.0.0",
-  "description": "A service desk management app written in MEVN stack",
+  "description": "A service desk management api app written in Typescript",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run install-client && cd client && npm run build && tsc",
-    "install-client": "cd client && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build",
     "start": "node dist/server.js",
     "server": "tsx server.ts",
-    "dev": "concurrently -n 'server,client' -c 'red,green' \"nodemon\" \"npm run client\"",
-    "client": "cd client && npm run dev"
+    "dev": "nodemon server.ts"
   },
   "repository": {
     "type": "git",

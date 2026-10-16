@@ -74,7 +74,7 @@ const router: Router = express.Router();
  */
 router.route('/')
   .post(registerUser)
-  .get(protect, getAllUsers);
+  .get(getAllUsers);
 
 /**
  * @swagger
