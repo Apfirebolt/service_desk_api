@@ -10,6 +10,7 @@ export interface IUser extends mongoose.Document {
   userType: 'member' | 'staff';
   createdAt: Date;
   updatedAt: Date;
+  matchPassword(enteredPassword: string): Promise<boolean>; // <-- Add this declaration
 }
 
 const userSchema = new mongoose.Schema<IUser>(
@@ -54,7 +55,7 @@ userSchema.methods.matchPassword = async function (enteredPassword: string) {
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
-    return
+    return;
   }
 
   const salt = await bcrypt.genSalt(10);

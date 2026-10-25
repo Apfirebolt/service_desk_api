@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
-import Complaint from '../models/complaint.ts';
+import Complaint from '../models/complaint.js';
 
 interface AuthRequest extends Request {
   user?: {
@@ -96,7 +96,7 @@ const updateComplaint = asyncHandler(async (req: AuthRequest, res: Response): Pr
   if (complaint.managedBy) {
     if (
       complaint.managedBy.toString() !== req.user._id.toString() &&
-      complaint.createdBy.toString() !== req.user._id.toString()
+      complaint.createdBy?.toString() !== req.user._id.toString()
     ) {
       res.status(403);
       throw new Error('This complaint is not assigned to you');
@@ -104,7 +104,7 @@ const updateComplaint = asyncHandler(async (req: AuthRequest, res: Response): Pr
   }
 
   if (
-    complaint.createdBy.toString() !== req.user._id.toString() &&
+    complaint.createdBy?.toString() !== req.user._id.toString() &&
     (!complaint.managedBy || complaint.managedBy.toString() !== req.user._id.toString()) &&
     req.user.isAdmin === false
   ) {
@@ -140,7 +140,7 @@ const deleteComplaint = asyncHandler(async (req: AuthRequest, res: Response): Pr
   }
 
   if (
-    complaint.createdBy.toString() !== req.user._id.toString() &&
+    complaint.createdBy?.toString() !== req.user._id.toString() &&
     req.user.isAdmin === false
   ) {
     res.status(403);
@@ -168,7 +168,7 @@ const getComplaint = asyncHandler(async (req: AuthRequest, res: Response): Promi
   }
 
   if (
-    complaint.createdBy.toString() !== req.user._id.toString() &&
+    complaint.createdBy?.toString() !== req.user._id.toString() &&
     req.user.isAdmin === false
   ) {
     res.status(403);

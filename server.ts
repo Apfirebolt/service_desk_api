@@ -2,10 +2,9 @@ import path from 'path';
 import express, { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
-import history from 'connect-history-api-fallback';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
-import { notFound, errorHandler } from './middleware/errorMiddleware';
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import connectDB from './config/db.js';
 
 import userRoutes from './routes/authRoutes.js';
@@ -66,9 +65,6 @@ const __dirname = path.resolve();
 app.use('/api/users', userRoutes);
 app.use('/api/departments', departmentRoutes);
 app.use('/api/complaints', complaintRoutes);
-
-// Use history fallback for single-page application routing
-app.use(history());
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/client/build')));

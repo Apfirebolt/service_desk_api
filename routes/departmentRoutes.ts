@@ -5,8 +5,8 @@ import {
   getDepartment,
   deleteDepartment,
   updateDepartment,
-} from '../controllers/departmentController.ts';
-import { protect, admin } from '../middleware/authMiddleware.ts';
+} from '../controllers/departmentController.js';
+import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router: Router = express.Router();
 

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
-import Department from '../models/department.ts';
+import Department from '../models/department.js';
 
 // @desc    List of all departments
 // @route   GET /api/departments

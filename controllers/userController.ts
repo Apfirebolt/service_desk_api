@@ -27,7 +27,7 @@ const authUser = asyncHandler(async (req: Request, res: Response): Promise<void>
       lastName: user.lastName,
       email: user.email,
       isAdmin: user.isAdmin,
-      token: generateToken(user._id),
+      token: generateToken(user._id.toString()),
     });
   } else {
     res.status(401);
@@ -65,7 +65,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response): Promise<v
       email: user.email,
       isAdmin: user.isAdmin,
       userType: user.userType,
-      token: generateToken(user._id),
+      token: generateToken(user._id.toString()),
     });
   } else {
     res.status(400);
@@ -126,7 +126,7 @@ const updateUserProfile = asyncHandler(async (req: AuthRequest, res: Response): 
       lastName: updatedUser.lastName,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
-      token: generateToken(updatedUser._id),
+      token: generateToken(updatedUser._id.toString()),
     });
   } else {
     res.status(404);
@@ -190,5 +190,5 @@ export {
   getUserProfile,
   updateUserProfile,
   getAllUsers,
-  deleteUser
+  deleteUser,
 };
