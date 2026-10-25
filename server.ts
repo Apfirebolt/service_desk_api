@@ -6,11 +6,11 @@ import history from 'connect-history-api-fallback';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import { notFound, errorHandler } from './middleware/errorMiddleware';
-import connectDB from './config/db';
+import connectDB from './config/db.js';
 
-import userRoutes from './routes/authRoutes';
-import complaintRoutes from './routes/complaintRoutes';
-import departmentRoutes from './routes/departmentRoutes';
+import userRoutes from './routes/authRoutes.js';
+import complaintRoutes from './routes/complaintRoutes.js';
+import departmentRoutes from './routes/departmentRoutes.js';
 
 dotenv.config();
 
