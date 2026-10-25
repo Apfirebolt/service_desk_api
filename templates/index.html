@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Desk Management API</title>
+    <!-- Materialize CSS Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Materialize CSS CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+            background-color: #f8f9fa;
+        }
+        main {
+            flex: 1 0 auto;
+        }
+        .hero {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+            color: white;
+        }
+        .card {
+            border-radius: 8px;
+            transition: transform 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <nav class="blue darken-3">
+            <div class="nav-wrapper container">
+                <a href="#" class="brand-logo"><i class="material-icons">support_agent</i>Service Desk API</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="/api/docs" target="_blank"><i class="material-icons left">menu_book</i>Swagger Docs</a></li>
+                    <li><a href="https://github.com" target="_blank"><i class="material-icons left">code</i>GitHub</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero center-align">
+            <div class="container">
+                <h1 class="header white-text">Service Desk Management API</h1>
+                <p class="flow-text grey-text text-lighten-3">
+                    Robust backend services for managing user authentication, departments, and service complaints efficiently.
+                </p>
+                <div class="row" style="margin-top: 2rem;">
+                    <a href="/api/docs" class="waves-effect waves-light btn-large white blue-text text-darken-3 z-depth-2">
+                        <i class="material-icons left">layers</i>Explore API Docs
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Modules / Endpoints Overview -->
+        <div class="container" style="margin-top: 3rem; margin-bottom: 3rem;">
+            <div class="row center">
+                <h4 class="blue-text text-darken-2" style="font-weight: 600; margin-bottom: 2rem;">API Resources</h4>
+            </div>
+            <div class="row">
+                <!-- Users Card -->
+                <div class="col s12 m4">
+                    <div class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title blue-text text-darken-2"><i class="material-icons left">people</i>Users & Auth</span>
+                            <p>Manage user registration, secure JWT logins, user roles, and profile information.</p>
+                        </div>
+                        <div class="card-action">
+                            <span class="grey-text text-darken-1">Endpoint: <code>/api/users</code></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Departments Card -->
+                <div class="col s12 m4">
+                    <div class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title blue-text text-darken-2"><i class="material-icons left">domain</i>Departments</span>
+                            <p>Organize internal support branches, teams, and categorize organizational sectors.</p>
+                        </div>
+                        <div class="card-action">
+                            <span class="grey-text text-darken-1">Endpoint: <code>/api/departments</code></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Complaints Card -->
+                <div class="col s12 m4">
+                    <div class="card hoverable">
+                        <div class="card-content">
+                            <span class="card-title blue-text text-darken-2"><i class="material-icons left">report_problem</i>Complaints</span>
+                            <p>Submit, track, assign status updates, and resolve service desk tickets.</p>
+                        </div>
+                        <div class="card-action">
+                            <span class="grey-text text-darken-1">Endpoint: <code>/api/complaints</code></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <page-footer>
+        <footer class="page-footer blue darken-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Service Desk Platform</h5>
+                        <p class="grey-text text-lighten-4">Powered by Node.js, Express, TypeScript, and MongoDB.</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Links</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="/api/docs">Swagger UI Dashboard</a></li>
+                            <li><a class="grey-text text-lighten-3" href="/api/health" style="display:none;">System Status</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container center">
+                    © 2026 Service Desk Management. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </page-footer>
+
+    <!-- Materialize JavaScript CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        // Initialize Materialize components if needed (e.g., side nav, tooltips)
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.sidenav');
+            M.Sidenav.init(elems);
+        });
+    </script>
+</body>
+</html>

@@ -51,7 +51,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
       },
     },
   },
-  apis: ['./routes/*.js'],
+  apis: ['./routes/*.ts'], // Updated to target TypeScript route files
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
@@ -62,25 +62,17 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 const __dirname = path.resolve();
 
+// Serve static assets (CSS, JS, images) from the templates folder
+app.use(express.static(path.join(__dirname, 'templates')));
+
 app.use('/api/users', userRoutes);
 app.use('/api/departments', departmentRoutes);
 app.use('/api/complaints', complaintRoutes);
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/client/build')));
-
-  app.use((req: Request, res: Response, next: NextFunction): void => {
-    const error: Error & { status?: number } = new Error('Not Found');
-    error.status = 404;
-
-    res.status(200).sendFile(path.join(__dirname + '/client/build/index.html'));
-    next(error);
-  });
-} else {
-  app.get('/', (req: Request, res: Response) => {
-    res.send('API is running....');
-  });
-}
+// Serve templates/index.html at the root endpoint
+app.get('/', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, 'templates/index.html'));
+});
 
 app.use(notFound);
 app.use(errorHandler);
