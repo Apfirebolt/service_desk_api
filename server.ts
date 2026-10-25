@@ -51,7 +51,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
       },
     },
   },
-  apis: ['./routes/*.ts'],
+  apis: ['./routes/*.js'],
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
@@ -86,11 +86,11 @@ app.use(notFound);
 app.use(errorHandler);
 
 // Only listen locally if not running in a serverless environment like Vercel
-if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => {
-    console.log(`Server running in development mode on port ${PORT}`);
-    console.log(`Swagger Docs available at http://localhost:${PORT}/api/docs`);
+if (!process.env.VERCEL) {
+  const PORT = Number(process.env.PORT) || 5000;
+  const HOST = '0.0.0.0'; // Ensures it listens on both IPv4 and IPv6/local interfaces
+  app.listen(PORT, HOST, () => {
+    console.log(`Server running on http://${HOST}:${PORT}`);
   });
 }
 
